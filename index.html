@@ -1,1 +1,57 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отображение текста</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script src="jquery.jslatex.js"></script>
+
+    <script>
+      $(function () {
+          $(".latex").latex();
+      });
+    </script>
+    <style>
+        .latex {
+            font-size: 1.2em;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <!-- Сюда будет вставлен текст -->
+    </div>
+
+    <script>
+        // Функция для извлечения параметра 'text' из URL
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Получаем текст из URL
+        const text = getParameterByName('text');
+
+        // Если текст передан, отображаем его
+        if (text) {
+            // Декодируем текст (на случай, если он был закодирован)
+            const decodedText = decodeURIComponent(text);
+
+            // Вставляем текст в блок #content
+            document.getElementById('content').innerHTML = decodedText;
+
+            // Инициализация LaTeX, если используется плагин jquery.jslatex.js
+            $('.latex').latex();
+        } else {
+            // Если текст не передан, выводим сообщение
+            document.getElementById('content').innerHTML = 'Текст не передан.';
+        }
+    </script>
+</body>
+</html>
